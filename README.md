@@ -41,6 +41,7 @@ node 'www.bw-y.com'{
 ## Reference
 
 ### Classes
+
 * rsync::params : 参数类，用于平台资源区分
 * rsync::install : 安装和创建所需资源
 * rsync::config : 管理rsync对应配置的资源创建顺序
@@ -54,8 +55,8 @@ node 'www.bw-y.com'{
 * rsync::resource::cmd : 创建rsync计划任务的资源引用
 ### Parameters
 
-### rsync
-* [rsyncd.conf手册](https://download.samba.org/pub/rsync/rsyncd.conf.html)
+[rsyncd.conf手册](https://download.samba.org/pub/rsync/rsyncd.conf.html)
+
 #### `port`
 见rsyncd.conf手册port     默认值: 873
 #### `address`
@@ -87,7 +88,8 @@ rsync服务是否开机启动,有效值[true(启动)|false(不启动)]    默认
 #### `servers`
 配置对应的rsync监听目录,此配置的有效取值见rsync::resource::server 默认值: {} 
 
-  * 注: 由于rsync配置文件的&include和&merge配置在ubuntu12.04上测试一直不通过,也就意味着,如果需要实现跨平台和自定义server配置,不可以使用配置解耦[每个单独的server独自生成的方式]的方法,因此,这里直接在rsync的主配置文件中使用erb语法直接解析此hash对,这样虽然解决了无法配置解耦的问题,但引入新的问题-无法使用create_resources创建资源,也就是无法使用默认值,最终会导致多个配置有重复的配置参数时,需要写多个,而为了解决此问题,这里笔者写了hash_merge函数(stdlib/lib/puppet/parser/functions/hash_merge.rb)解决,其说明见函数文档)
+  * [注: 由于rsync配置文件的&include和&merge配置在ubuntu12.04上测试一直不通过,也就意味着,如果需要实现跨平台和自定义server配置,不可以使用配置解耦[每个单独的server独自生成的方式]的方法,因此,这里直接在rsync的主配置文件中使用erb语法直接解析此hash对,这样虽然解决了无法配置解耦的问题,但引入新的问题-无法使用create_resources创建资源,也就是无法使用默认值,最终会导致多个配置有重复的配置参数时,需要写多个,而为了解决此问题,这里笔者写了hash_merge函数(stdlib/lib/puppet/parser/functions/hash_merge.rb)解决,其说明见函数文档)]
+
 #### `servers_defaults`
 servers的默认值, 默认值: {'read_only' => false, 'list' => true, 'uid' => 'root', 'gid' => 'root'},
 #### `cmds`
