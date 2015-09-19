@@ -1,0 +1,17 @@
+service rsync
+{
+<% if @service_enable == 'true' -%>
+	disable	        = no
+<% else -%>
+	disable	        = yes
+<% end -%>
+<% if @priosrelease == '6' -%>
+	flags		= IPv6
+<% end -%>
+	socket_type     = stream
+	wait            = no
+	user            = <%= @uid %>
+	server          = /usr/bin/rsync
+	server_args     = --daemon --config <%= @conf_file %>
+	log_on_failure  += USERID
+}

@@ -1,0 +1,30 @@
+port = <%= @port %>
+address = <%= @address %>
+uid = <%= @uid %>
+gid = <%= @gid %>
+use chroot = <%= @use_chroot %>
+read only = <%= @read_only %>
+max connections = <%= @max_conn %>
+pid file = <%= @pid_file %>
+lock file = <%= @lock_file %>
+log file = <%= @log_file %>
+timeout = <%= @timeout %>
+
+<% @modules.each do |key, value| -%>
+
+[<%= "#{key}" %>]
+<% @modules[key].each do |s_k, s_v| -%>
+<% if "#{s_k}".match('(path|list|gid)') -%>
+<%= "#{s_k}" -%> = <%= "#{s_v}" %>
+<% end -%>
+<% if "#{s_k}" == 'read_only' -%>
+ignore errors
+read only = <%= "#{s_v}" %>
+<% end -%>
+<% if "#{s_k}" == 'uid' -%>
+auth users = <%= "#{s_v}" %>
+uid = <%= "#{s_v}" %>
+secrets file = <%= @dir_keys %>/<%= "#{key}" %>.key
+<% end -%>
+<% end -%>
+<% end -%>

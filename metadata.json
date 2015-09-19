@@ -1,0 +1,14 @@
+{
+  "name": "rsync",
+  "version": "0.1.0",
+  "author": "bw-y",
+  "summary": null,
+  "license": "Apache 2.0",
+  "source": "https://github.com/bw-y/puppet-rsync",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
